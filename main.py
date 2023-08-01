@@ -26,7 +26,26 @@ class Tile:
 
     def remove(self, obj):
         self.objects.remove(obj)
+class Thing:
+    def __init__(self, name: str, description: str, weight: float):
+        self.name = name
+        self.description = description
+        self.weight = weight
 
+class Inventory:
+    def __init__(self):
+        self.max_weight = 0
+        self.capacity = 0
+        self._inventory = []
+
+    def take_inventory_info(self):
+        return [stuff.info() for stuff in self._inventory]
+    def get_from_inventory(self, ID):
+        if ID in self._inventory:
+            return self._inventory.pop(ID)
+        return False
+    def set_into_inventory(self, object):
+        pass
 
 class Location:
     def __init__(self, rows, cols):
@@ -72,9 +91,9 @@ class Harvest_Manager:
         self.list_unit.append(obj)
 
     def harvest(self, receiver, donor):
-        #не ебу че тут сделать, ведь ресурсы разные могут быть, плюс у юнитов есть инвентарь свой и ограничение по весу
-        if donor.capacity >0:
-            donor.capacity -= 1
+        if donor >0:
+            donor -= 1
+            receiver += 1
             #receiver.
 class Move_Manager:
     def __init__(self, location):
